@@ -1,0 +1,195 @@
+{% load static %}
+{% load compress %}
+<!DOCTYPE html>
+<!--=== Coding by CodingLab | www.codinglabweb.com === -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/f060f2104e.js" crossorigin="anonymous"></script>
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+    {% compress css %}
+    <link type="text/x-scss" href="{% static 'main.scss' %}" rel="stylesheet" media="screen"/>
+    {% endcompress %}
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <title>{% block title %}{% endblock %}</title>
+    {% if info%}
+    <link rel="shortcut icon" href="{{info.0.logo.url }}">
+    {% endif %}
+</head>
+<body>
+
+{% if messages %}
+    <div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
+        <div id="liveToast" class="toast hide text-white bg-primary" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Food For All Campaign</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            {% for msg in messages %}
+            <div class="toast-body {{ msg.tags }}">
+                {{msg}}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+<div class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column" id="sidebar">
+    <ul class="nav flex-column text-white w-100">
+        <p class="nav-link h3 text-white my-2">
+            Menu
+        </p>
+        <li class="nav-link text-white py-1">
+            <a href="{% url 'dashboard'%}" class="text-decoration-none">
+                <i class="fs-6 fa-solid fa-house"></i> <span class="ms-1 d-sm-inline">Dashboard</span> </a>
+        </li>
+        <li class="nav-link py-1">
+            <a href="{% url 'withdrawals'%}" class="text-decoration-none">
+                <i class="fs-6 fa-solid fa-money-bill-transfer"></i> <span
+                    class="ms-1 d-sm-inline">Withdrawals</span></a>
+        </li>
+        <li class="nav-link py-1">
+            <a href="{% url 'levels'%}" class="text-decoration-none">
+                <i class="fs-6 fa-solid fa-list-check"></i> <span class="ms-1 d-sm-inline">Levels</span></a>
+        </li>
+        <li class="nav-link py-1">
+            <a href="{% url 'downlines'%}" class="text-decoration-none">
+                <i class="fs-6 fa-solid fa-timeline"></i> <span class="ms-1 d-non d-sm-inline">Downlines</span> </a>
+        </li>
+        <li class="nav-link py-1">
+            <a href="{% url 'payments'%}" class="text-decoration-none">
+                <i class="fs-6 fa-solid fa-key"></i> <span class="ms-1 d-sm-inline">Payment PIN</span> </a>
+        </li>
+        <li class="nav-link py-1">
+            <a href="{% url 'referrals'%}" class="text-decoration-none">
+                <i class="fs-6 fa-solid fa-users"></i> <span class="ms-1 d-sm-inline">Referrals</span> </a>
+        </li>
+        <li class="nav-link py-1">
+            <a href="#" class="text-decoration-none ">
+                <i class="fs-6 fa-solid fa-circle-info"></i> <span
+                    class="ms-1 d-sm-inline">Help and Support</span> </a>
+        </li>
+    </ul>
+
+    <div>
+        <a class="nav-link pb-4 text-decoration-none" href="{% url 'logout'%}"><i class="fs-6 uil uil-signout"></i><span
+                class="ms-1 d-sm-inline">Sign Out</span></a>
+    </div>
+</div>
+
+<div class="my-container active-cont ">
+    <!--    dashboard top menu-->
+    <nav class="navbar navbar-dark bg-white shadow sticky-top">
+        <div class="container-fluid">
+            <a role="button"><i class="fs-2 fa-solid fa-bars text-primary" id="menu-btn"></i></a>
+
+            <!--            <form>-->
+            <!--                <input type="text" class="inputfield" placeholder="Search..." aria-label="Recipient's username" aria-describedby="button-addon2">-->
+            <!--            <button class="btn btn-primary" type="button" id="button-addon2">Search</button>-->
+            <!--            </form>-->
+
+
+            <section>
+                <div class="btn-group" >
+                    <section class="dropdown-toggle" id="dropdownMenuButton2" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                        <span class="me-1 justify-content-center">Hi, {{request.user.username}}</span>
+                    <a   ><img src="{{user.profile.get_photo_url}}" class="rounded-circle mx-auto" width="50" height="50" alt="..."></a>
+                    </section>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                        <li><a class="dropdown-item" href="{% url 'edit-profile' %}">Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout'%}">Sign Out</a></li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </nav>
+
+    <!--Dashboard Main contents-->
+    <section class="container min-vh-100">
+        {% block content %}
+
+        {% endblock content %}
+    </section>
+    <footer class="row bg-warning mt-5 py-2 dash-footer ">
+        <p class="text-center ">Copyright © Food For All Campaign 2022</p>
+    </footer>
+</div>
+
+<!--<section class="dashboard bg-light bg-gradient">-->
+<!--    <div class="top shadow">-->
+<!--        <i class="uil uil-bars sidebar-toggle"></i>-->
+
+<!--        <div class="search-box">-->
+<!--            <div class="input-group mb-3">-->
+<!--                    <input type="text" class="form-control" placeholder="Search..." aria-label="Recipient's username" aria-describedby="button-addon2">-->
+<!--                    <button class="btn btn-primary" type="button" id="button-addon2">Search</button>-->
+<!--                </div>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--           <span class="me-1">Hi, {{request.user.username}}</span>-->
+<!--            <a href="{% url 'edit-profile' %}"><img src="{{user.profile.get_photo_url}}" alt=""></a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="row mt-6">-->
+<!--        <div class="col-12 ">-->
+<!--&lt;!&ndash;            block content here&ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="{% static 'JavaScript/script.js' %}"></script>
+
+<script>
+<!--Side bar Functionality- Dashboard-->
+    var menu_btn = document.querySelector("#menu-btn");
+var sidebar = document.querySelector("#sidebar");
+var container = document.querySelector(".my-container");
+menu_btn.addEventListener("click", () => {
+  sidebar.classList.toggle("active-nav");
+  container.classList.toggle("active-cont");
+});
+
+
+<!--Dashboard Active links-->
+const servicelinks = document.querySelectorAll('.side-navbar ul li a');
+const listitems = document.querySelectorAll('.side-navbar ul li');
+
+for (link of servicelinks) {
+    if (window.location.pathname == link.getAttribute('href')) {
+        link.parentElement.classList.add('nav-link-hover')
+    } else {
+        link.parentElement.classList.remove('nav-link-hover')
+    }
+}
+
+<!--dropdown-->
+var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+  return new bootstrap.Dropdown(dropdownToggleEl)
+})
+</script>
+
+<script>
+    var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+    var toastList = toastElList.map(function (toastEl) {
+    return new bootstrap.Toast(toastEl, option)
+})
+
+</script>
+<script>
+    $(document).ready(function() {
+        $(".toast").toast('show');
+    });
+</script>
+
+</body>
+</html>
+
+
+

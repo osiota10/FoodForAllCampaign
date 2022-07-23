@@ -1,0 +1,60 @@
+{% extends 'Company/base.html' %}
+{% load static %}
+{% load compress %}
+
+{% block title %}
+What We Do-Food for All Campaign
+{% endblock %}
+
+{% block content %}
+<header class="card bg-dark text-white header-card ratio ratio-21x9">
+    <img src="{{info.0.page_header_image.url}}" class="card-img" alt="...">
+    <div class="card-img-overlay d-flex align-items-center justify-content-center img-dark-overlay">
+        <div class="flex-column">
+            <h1 class="h1 card-title text-center">What We Do</h1>
+            <h6 class="h6 text-center">Our Top Notch Services</h6>
+        </div>
+    </div>
+</header>
+
+
+<section class="py-3 bg-warning">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="container">
+        <ol class="breadcrumb fw-normal">
+            <li class="breadcrumb-item"><a href="{% url 'home'%}" class="text-decoration-none">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">What We Do</li>
+        </ol>
+    </nav>
+</section>
+
+<section class=" container mt-2">
+    <div class="row gy-4">
+        {% for service in services%}
+        <div class="col-lg-4">
+            <div class="card mx-auto" style="max-width: 415px;">
+                <div class="ratio ratio-16x9">
+                    <img src="{{service.get_photo_url}}" class="card-img-top" alt="...">
+                </div>
+                <div class="card-body mt-1">
+                    <h5 class="card-title text-center">{{service.title|title}}</h5>
+                    <p class="card-text mt-1">{{service.snippet|safe|truncatechars:100}}</p>
+                    <a class="d-grid btn btn-primary fw-normal mt-1" href="{% url 'services-detail' service.slug %}"
+                       role="button">Read More</a>
+                </div>
+                <!--                <div class="d-grid">-->
+                <!--                    <a class="btn btn-primary  mt-1 " href="{% url 'services-detail' service.slug %}" role="button">View Details</a>-->
+                <!--                </div>-->
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <section class="py-6">
+        {% include 'Company/network-marketing-snippet.html' %}
+    </section>
+</section>
+
+<section class="reveal">
+    {% include 'Company/contact-form.html' %}
+</section>
+
+{% endblock content %}

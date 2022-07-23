@@ -1,0 +1,21 @@
+
+{% load static %}
+
+{% if why_choose_us%}
+<header class="text-center">
+        <h2 class="">{{why_choose_us.title}}</h2>
+        <h6 class="h6">{{why_choose_us.sub_title}}</h6>
+        <hr class="hr mx-auto" style="width: 10%;">
+    </header>
+
+<div class="row align-items-center g-0 mt-3">
+            <div class="col-md-6 p-3">
+                <p>{{why_choose_us.snippet|safe|truncatechars:500}}</p>
+            </div>
+            <div class="col-md-6">
+                <section class="ratio ratio-4x3">
+                    <img src="{{why_choose_us.pic.url}}" class="img-fluid h-100" alt="...">
+                </section>
+            </div>
+        </div>
+{% endif %}

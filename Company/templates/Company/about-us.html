@@ -1,0 +1,60 @@
+{% extends 'Company/base.html' %}
+{% load static %}
+{% load compress %}
+
+{% block title %}
+About-Food for All Campaign
+{% endblock %}
+
+
+{% block content %}
+<header class="card bg-dark text-white header-card ratio ratio-21x9">
+        <img src="{{info.0.page_header_image.url}}" class="card-img" alt="...">
+        <div class="card-img-overlay d-flex align-items-center justify-content-center img-dark-overlay">
+            <div class="flex-column">
+                <h1 class="h1 card-title text-center">About US</h1>
+            </div>
+        </div>
+    </header>
+
+<section class="py-3 bg-warning">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="container">
+            <ol class="breadcrumb fw-normal">
+                <li class="breadcrumb-item"><a href="{% url 'home'%}" class="text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">About Us</li>
+            </ol>
+        </nav>
+    </section>
+
+<section class="container">
+<section class="">
+    {% include 'Company/core-values.html' %}
+</section>
+
+<div class="clearfix mt-6 reveal">
+  <header class="text-center ">
+        <h2 class="h2 text-center">Our History</h2>
+        <h6 class="h6">How we came into Existence</h6>
+         <hr class="hr mx-auto" style="width: 10%;">
+    </header>
+  <img src="{{info.0.history_image.url}}" class="col-md-6 float-md-end mb-3 ms-md-3 img-fluid" alt="...">
+
+  <p>
+    {{info.0.history|safe}}
+  </p>
+</div>
+
+    {% include 'Company/stats.html' %}
+
+  <section class="container py-6 why-choose-use reveal">
+    {% include 'Company/why-choose-us.html' %}
+</section>
+
+
+</section>
+
+<section class="reveal">
+    {% include 'Company/contact-form.html' %}
+</section>
+
+{% endblock content %}

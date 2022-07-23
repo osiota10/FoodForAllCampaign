@@ -1,0 +1,71 @@
+{% extends 'dash-base.html' %}
+{% load static %}
+{% load compress %}
+
+{% block content %}
+
+<div class="row row-cols-1 row-cols-lg-4 g-4">
+    <div class="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <p class="card-text">Current Level</p>
+                    <h5 class="card-title">{{current_level}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card text-center">
+            <div class="card-body">
+                <p class="card-text">Referral Bonus</p>
+                <h5 class="card-title">{{my_recs_count}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <p class="card-text">Matching Bonus</p>
+                <h5 class="card-title">N30,500</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <p class="card-text">My Downlines</p>
+                <h5 class="card-title">{{downline_number}}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h5 class="text-center mt-5">Level Information</h5>
+
+<section class="table-responsive">
+    <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Levels</th>
+        <th scope="col">Downlines</th>
+        <th scope="col">Referral Bonus</th>
+        <th scope="col">Match Bonus</th>
+        <th scope="col">Upgrade Payment</th>
+        <th scope="col">Rewards</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for levels in level_info %}
+    <tr>
+        <td>{{levels.level}}</td>
+        <td>{{levels.down_lines}}</td>
+        <td>{{levels.referral_bonus}}</td>
+        <td>{{levels.match_bonus}}</td>
+        <td>{{levels.upgrade_payment}}</td>
+        <td>{{levels.reward}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</section>
+{% endblock content%}

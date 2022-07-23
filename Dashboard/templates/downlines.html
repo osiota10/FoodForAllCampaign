@@ -1,0 +1,71 @@
+{% extends 'dash-base.html' %}
+{% load static %}
+{% load compress %}
+
+{% block content %}
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <p class="card-text">Current Downlines</p>
+                <h5 class="card-title">{{current_downlines}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card text-center">
+            <div class="card-body">
+                <p class="card-text">Expected Downlines</p>
+                <h5 class="card-title">{{total_downlines}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <p class="card-text">Remaining Downlines</p>
+                <h5 class="card-title">{{remaining_downlines}}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h5 class="text-center mt-5">Your Downlines</h5>
+
+<section class="table-responsive">
+    <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Date Joined</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone Number</th>
+    </tr>
+    </thead>
+    {% if index_slice %}
+    <tbody>
+    {% for profile in page_obj %}
+    <tr>
+        <td>{{profile.date_joined|date:"D d M Y"}}</td>
+        <td>{{profile.first_name}} {{profile.last_name}}</td>
+        <td>{{profile.email}}</td>
+        <td>{{profile.profile.phone_number}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    {% else %}
+    <tbody>
+    <td colspan="4" class="text-center">No Downline yet</td>
+    </tbody>
+    {% endif %}
+</table>
+</section>
+
+<section class="py-5">
+    {% include 'pagination.html' %}
+</section>
+
+
+
+{% endblock content%}

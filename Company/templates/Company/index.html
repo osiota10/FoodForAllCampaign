@@ -1,0 +1,175 @@
+{% extends 'Company/base.html' %}
+{% load static %}
+{% load compress %}
+
+{% block title %}
+Food for All Campaign
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            {% for service in services%}
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{service.pk}}"
+                    class="active" aria-current="true" aria-label="Slide {{service.pk}}"></button>
+            {% endfor %}
+        </div>
+        <div class="carousel-inner">
+            {% for service in services%}
+            <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %} ratio ratio-21x9" data-bs-interval="10000" >
+                <img src="{{service.get_photo_url}}" class="d-block w-100 img-dark-overlay" alt="...">
+                <div class="carousel-caption d-flex flex-column align-items-start justify-content-center">
+                    <h2>{{service.title|title}}</h2>
+                    <p class="paragraph-dark-bg">{{service.snippet|safe|truncatechars:200}}</p>
+                    <form class="mt-2">
+                <a class="btn btn-light me-1 " href="{% url 'services-detail' service.slug %}" role="button" >See More</a>
+                <a class="btn btn-outline-light " href="{% url 'contact' %}" role="button">Contact Us</a>
+            </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% include 'Company/stats.html' %}
+
+<section class="reveal">
+    {% include 'Company/core-values.html' %}
+</section>
+
+
+<section class="container py-3 what-we-do reveal">
+    <header class="text-center ">
+        <h2 class="h2">What We Do</h2>
+        <h6 class="h6">Our Top Notch Services</h6>
+         <hr class="hr mx-auto" style="width: 10%;">
+    </header>
+    <div class="row gy-3">
+        {% for service in services%}
+        <div class="col-lg-4">
+            <div class="card mx-auto" style="max-width: 415px;">
+                <div class="ratio ratio-16x9">
+                            <img src="{{service.get_photo_url}}" class="card-img-top" alt="...">
+                        </div>
+                <div class="card-body mt-1">
+                    <h5 class="card-title text-center">{{service.title|title}}</h5>
+                    <p class="card-text mt-1">{{service.snippet|safe|truncatechars:100}}</p>
+                    <a class="d-grid btn btn-primary fw-normal mt-1" href="{% url 'services-detail' service.slug %}" role="button">Read More</a>
+                </div>
+<!--                <div class="d-grid">-->
+<!--                    <a class="btn btn-primary  mt-1 " href="{% url 'services-detail' service.slug %}" role="button">View Details</a>-->
+<!--                </div>-->
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="py-6 network-marketing reveal">
+    {% include 'Company/network-marketing-snippet.html' %}
+</section>
+
+<section class="container py-6 why-choose-use reveal">
+    {% include 'Company/why-choose-us.html' %}
+</section>
+
+
+<section class="py-6 testimonials reveal bg-warning">
+    <section class="container">
+        <header class="text-center mb-3">
+        <h2 class="h2">Testimonials</h2>
+        <h6 class="h6">What people say about Us</h6>
+        <hr class="hr mx-auto" style="width: 10%;">
+    </header>
+    <div class="row ">
+        <div class="owl-carousel" id="test">
+            {% for test in testimonials%}
+            <section class="owl-theme p-2">
+                <div class="card">
+                <div class="text-center pt-3">
+                    <img src="{{test.photo.url}}" class="rounded-circle mx-auto"
+                         alt="Photo of {{test.name}}">
+                </div>
+
+                <div class="card-body">
+                    <h4 class="h4 card-title text-center">{{test.name}}</h4>
+                    <h6 class="card-subtitle text-center mt-1">{{test.location}}</h6>
+                    <i class="fa-solid fa-quote-left"></i>
+                    <p class="card-text"><em>{{test.testimony|safe}}</em></p>
+                    <i class="fa-solid fa-quote-right d-flex justify-content-end"></i>
+                </div>
+            </div>
+            </section>
+            {% endfor %}
+        </div>
+    </div>
+    </section>
+</section>
+
+<section class="container py-6 gallery reveal">
+    <header class="text-center mb-3">
+        <h2 class="h2">Photo Gallery</h2>
+        <h6 class="h6">Photo Speaks</h6>
+        <hr class="hr mx-auto" style="width: 10%;">
+    </header>
+    <div class="row">
+        <div class="owl-carousel" id="photo">
+            {% for photo in photo_gallery%}
+            <section class="owl-theme">
+                <div class="item ">
+                <img src="{{photo.photo.url}}" class="img-fluid" alt="...">
+            </div>
+            </section>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-primary text-center" href="{% url 'photo-gallery' %}" role="button" >See All</a>
+    </div>
+
+</section>
+
+<section class="py-6 email bg-warning reveal">
+    <section class="container">
+        <header class="text-center ">
+            <h2 class="h2 text-primary fw-bolder">Subscribe to our Newsletter</h2>
+            <h6 class="h6 text-primary">Recieve exclusive updates straight to your inbox</h6>
+        </header>
+
+        <section class="row justify-content-center mt-2">
+            <section class="col-lg-6">
+                <form method="POST" id="SubscriptionForm">
+                    {% csrf_token %}
+                    <div class="mb-1">
+                        <label for="inputEmail3" class="form-label">Email</label>
+                        <input type="email" class="form-control inputfield" id="inputEmail3" name="email">
+                    </div>
+                    <div class="">
+                        <div class="form-check">
+                            <input class="form-check-input " type="checkbox" id="gridCheck" required>
+                            <input type="hidden" name="form_type" value="SubscriptionForm">
+                            <label class="form-check-label " for="gridCheck">
+                                <small>By submitting you agree to the <a href="{% url 'privacy-policy'%}"
+                                                                         class="text-decoration-none fw-bold">Privacy
+                                    Policy</a> and <a href="{% url 'terms-and-conditions'%}"
+                                                      class="text-decoration-none fw-bold">Terms and
+                                    Conditions</a></small>
+                            </label>
+                        </div>
+
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </section>
+    </section>
+</section>
+
+<section class="reveal">
+    {% include 'Company/contact-form.html' %}
+</section>
+{% endblock content %}

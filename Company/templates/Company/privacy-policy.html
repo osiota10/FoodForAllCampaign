@@ -1,0 +1,44 @@
+{% extends 'Company/base.html' %}
+{% load static %}
+{% load compress %}
+
+{% block title %}
+{{privacy.title}}-Food for All Campaign
+{% endblock %}
+
+{% block content %}
+{% if privacy%}
+<div class="card bg-dark text-white header-card ratio ratio-21x9" >
+    <img src="{{info.0.page_header_image.url}}" height="350" class="card-img" alt="...">
+    <div class="card-img-overlay d-flex align-items-center justify-content-center img-dark-overlay">
+        <div class="flex-column">
+            <h1 class="h1 card-title text-center">{{privacy.title}}</h1>
+        </div>
+    </div>
+</div>
+
+<section class="py-3 bg-warning">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="container">
+        <ol class="breadcrumb fw-normal">
+            <li class="breadcrumb-item"><a href="{% url 'home'%}" class="text-decoration-none">Home</a></li>
+            <li class="breadcrumb-item active"><a href="{% url 'about' %}" class="text-decoration-none">About US</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{privacy.title}}</li>
+        </ol>
+    </nav>
+</section>
+
+<section class="mt-5 container">
+    <section class="mt-4 container">
+    <div class="row">
+        <div class="col-lg-9 mx-auto">
+            <p class="card-text">{{privacy.snippet|safe}}</p>
+        </div>
+    </div>
+</section>
+</section>
+{% endif %}
+
+<section class="reveal">
+    {% include 'Company/contact-form.html' %}
+</section>
+{% endblock content %}

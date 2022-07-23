@@ -1,0 +1,69 @@
+{% load static %}
+<div class="bg-primary text-white pb-2">
+    <div class="container">
+        <div class="row gy-3">
+            <div class="col-lg-3">
+                <h4 class="h4">About</h4>
+                <p>
+                    {{info.0.about|safe }}
+                </p>
+                {% if socials %}
+                <section class="mt-1">
+                    {% for social in socials %}
+                    <a role="button" href="{{ social.url }}"
+                       class="{{ social.font_awesome_class }} fs-4 me-1 text-white text-decoration-none"
+                       data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ social.name }}"></a>
+                    {% endfor %}
+                </section>
+                {% endif %}
+            </div>
+            <div class="col-lg-3">
+                <h4 class="h4">Services</h4>
+                <ul class="list-group list-group-flush">
+                    {% if services%}
+                    {% for service in service_list%}
+                    <li><a href="{% url 'services' %}" class="list-group-item bg-primary text-white"><i
+                            class="fa-solid fa-angles-right me-1"></i>{{service.title|title|truncatechars:22}}</a></li>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <h4 class="h4">Company</h4>
+                <ul class="list-group list-group-flush">
+                    <li><a href="{% url 'photo-gallery' %}" class="list-group-item bg-primary text-white"><i
+                            class="fa-solid fa-angles-right me-1"></i>Photo
+                        Gallery</a></li>
+                    <li><a href="{% url 'terms-and-conditions' %}" class="list-group-item bg-primary text-white"><i
+                            class="fa-solid fa-angles-right me-1"></i>Terms &
+                        Conditions</a></li>
+                    <li><a href="{% url 'privacy-policy' %}" class="list-group-item bg-primary text-white"><i
+                            class="fa-solid fa-angles-right me-1"></i>Privacy
+                        Policy</a></li>
+                    <li><a href="{% url 'contact' %}" class="list-group-item bg-primary text-white"><i
+                            class="fa-solid fa-angles-right me-1"></i>Contact Us</a></li>
+                    <li><a href="{% url 'about' %}" class="list-group-item bg-primary text-white"><i
+                            class="fa-solid fa-angles-right me-1"></i>About us</a></li>
+                    <li><a href="#" class="list-group-item bg-primary text-white"><i
+                            class="fa-solid fa-angles-right me-1"></i>Testimonials</a></li>
+                </ul>
+            </div>
+            <section class="col-lg-3">
+                <h4 class="h4">MLM Marketing</h4>
+                <ul class="list-group list-group-flush">
+                    <li><a href="{% url 'network-marketing' %}" class="list-group-item bg-primary text-white"><i
+                            class="fa-solid fa-angles-right me-1"></i>How it works</a></li>
+                    <li><a href="{% url 'register' %}" class="list-group-item bg-primary text-white"><i
+                            class="fa-solid fa-angles-right me-1"></i>Create Account</a></li>
+                    <li><a href="{% url 'login' %}" class="list-group-item bg-primary text-white"><i
+                            class="fa-solid fa-angles-right me-1"></i>Log in</a></li>
+                </ul>
+            </section>
+
+        </div>
+        <div class="row">
+            <hr class="mt-2 bg-white" style="height: 1px;">
+            <p class="text-center">Copyright 2022. All rights Reserved</p>
+        </div>
+    </div>
+</div>

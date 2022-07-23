@@ -1,0 +1,20 @@
+{% load static %}
+{% if stat %}
+<section class="container py-6 stats reveal">
+    <section class="row gy-3">
+        {% for info in stat %}
+        <section class="col-md-3">
+            <div class="card border-bottom border-primary border-2 " style="max-width: 415px;">
+                <div class="card-body">
+                    <header class="mx-auto rounded text-center d-flex align-items-center justify-content-center">
+                        <i class="{{ info.font_awesome_class }} fs-1 text-primary"></i>
+                    </header>
+                    <h3 class="card-title text-center"><span class="h1 num" data-val="{{ info.stat_figure }}">666</span>+</h3>
+                    <h6 class="card-text text-center">{{ info.stat_title }}</h6>
+                </div>
+            </div>
+        </section>
+        {% endfor %}
+    </section>
+</section>
+{% endif %}

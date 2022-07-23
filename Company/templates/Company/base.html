@@ -1,0 +1,219 @@
+{% load static %}
+{% load compress %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/f060f2104e.js" crossorigin="anonymous"></script>
+    <!--        <script src="{% static 'JavaScript/Carousel.js' %}"></script>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+          integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+          crossorigin="anonymous"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+          integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+          crossorigin="anonymous"/>
+
+    {% compress css %}
+    <link type="text/x-scss" href="{% static 'main.scss' %}" rel="stylesheet" media="screen"/>
+    {% endcompress %}
+    <link rel="stylesheet" href="{% static 'CSS/lightbox.css' %}">
+    <!--    <script defer src="{% static 'JavaScript/new-main.js' %}"></script>-->
+    <title>{% block title %}{% endblock %}</title>
+    {% if info%}
+    <link rel="shortcut icon" href="{{info.0.logo.url }}">
+    {% endif %}
+</head>
+
+<body>
+<main>
+    {% if storage%}
+    <div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
+        <div id="liveToast" class="toast hide text-white bg-primary" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Food For All Campaign</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            {% for msg in storage %}
+            <div class="toast-body">
+                {{msg}}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+
+    <header>
+        {% include 'Company/nav.html' %}
+    </header>
+
+    <section>
+        {% block content %}
+
+        {% endblock content%}
+    </section>
+
+
+
+    <footer id="footer">
+        {% include 'Company/footer.html' %}
+    </footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+        integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+        crossorigin="anonymous"></script>
+<script>
+        $('#test').owlCarousel({
+            loop: true,
+            margin: 15,
+            autoplay: true,
+            nav: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                1000: {
+                    items: 3
+                }
+            }
+        })
+
+        $('#photo').owlCarousel({
+            loop: true,
+            margin: 15,
+            autoplay: true,
+            nav: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 3
+                }
+            }
+        })
+
+        $('#address-list').owlCarousel({
+            loop: true,
+            margin: 15,
+            autoplay: true,
+            nav: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 3
+                }
+            }
+        })
+</script>
+<script>
+const links = document.querySelectorAll('.nav-target ul li a');
+
+for (link of links) {
+    if (window.location.pathname == link.getAttribute('href')) {
+        link.classList.add('custom-active')
+    } else {
+        link.classList.remove('custom-active')
+    }
+}
+
+const servicelinks = document.querySelectorAll('.servicelinks .list-group a');
+
+for (link of servicelinks) {
+    if (window.location.pathname == link.getAttribute('href')) {
+        link.classList.add('active')
+    } else {
+        link.classList.remove('active')
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  window.addEventListener('scroll', function() {
+      if (window.scrollY > 50) {
+        document.getElementById('navbar_top').classList.add('fixed-top');
+        // add padding top to show content behind navbar
+        navbar_height = document.querySelector('.navbar').offsetHeight;
+        document.body.style.paddingTop = navbar_height + 'px';
+      } else {
+        document.getElementById('navbar_top').classList.remove('fixed-top');
+         // remove padding top from body
+        document.body.style.paddingTop = '0';
+      }
+  });
+});
+
+<!--slow scroll effect-->
+    window.addEventListener('scroll', reveal);
+
+    function reveal(){
+      var reveals = document.querySelectorAll('.reveal');
+
+      for(var i = 0; i < reveals.length; i++){
+
+        var windowheight = window.innerHeight;
+        var revealtop = reveals[i].getBoundingClientRect().top;
+        var revealpoint = 150;
+
+        if(revealtop < windowheight - revealpoint){
+          reveals[i].classList.add('active-reveal');
+        }
+        else{
+          reveals[i].classList.remove('active-reveal');
+        }
+      }
+    }
+
+<!--let w = window.innerWidth;-->
+<!--let h = window.innerHeight;-->
+<!--console.log(w)-->
+
+const buttonElement = document.querySelector('.create-acct-button')
+const refStatus = document.querySelector('.ref-status')
+
+if(refStatus.value.includes('Invalid referral Link')) {
+    buttonElement.classList.add('disabled');
+} else {
+    buttonElement.classList.remove('disabled');
+}
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<script>
+    var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+    var toastList = toastElList.map(function (toastEl) {
+    return new bootstrap.Toast(toastEl, option)
+})
+
+</script>
+<script>
+    $(document).ready(function() {
+        $(".toast").toast('show');
+    });
+</script>
+
+<script src="{% static 'JavaScript/lightbox-plus-jquery.js' %}"></script>
+<script src="{% static 'JavaScript/new-main.js' %}"></script>
+</body>
+
+</html>
+
+

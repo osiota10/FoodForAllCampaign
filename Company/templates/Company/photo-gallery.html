@@ -1,0 +1,47 @@
+{% extends 'Company/base.html' %}
+{% load static %}
+{% load compress %}
+
+{% block title %}
+Photo Gallery-Food for All Campaign
+{% endblock %}
+
+{% block content %}
+<header class="card bg-dark text-white header-card ratio ratio-21x9" >
+    <img src="{{info.0.page_header_image.url}}" class="card-img" alt="...">
+    <div class="card-img-overlay d-flex align-items-center justify-content-center img-dark-overlay">
+        <div class="flex-column">
+            <h1 class="h1 card-title text-center">Photo Gallery</h1>
+        </div>
+    </div>
+</header>
+
+<section class="py-3 bg-warning">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="container">
+        <ol class="breadcrumb fw-normal">
+            <li class="breadcrumb-item"><a href="{% url 'home'%}" class="text-decoration-none">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Photo Gallery</li>
+        </ol>
+    </nav>
+</section>
+
+<section class="py-5 container">
+  <div class="row row-cols-lg-2 row-cols-md-2 gy-3">
+	  {% for photo in photos%}
+    <div class="col-md">
+        <a href="{{photo.photo.url}}" data-lightbox="models"><img src="{{photo.photo.url}}" class="img-fluid" /> </a>
+	</div>
+	  {% endfor %}
+  </div>
+</section>
+
+<section class="py-3">
+    {% include 'pagination.html' %}
+</section>
+
+
+<section class="reveal">
+    {% include 'Company/contact-form.html' %}
+</section>
+{% endblock content %}
+

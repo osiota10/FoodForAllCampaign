@@ -1,0 +1,24 @@
+{% load static %}
+{% if net_mkt %}
+<section class="container">
+    <header class="text-center mb-3">
+        <h2 class="h2">{{net_mkt.title}}</h2>
+        <h6 class="h6">{{net_mkt.sub_title}}</h6>
+        <hr class="hr mx-auto" style="width: 10%;">
+    </header>
+
+<div class="row align-items-center g-0 ">
+            <div class="col-md-6">
+                <section class="ratio ratio-4x3">
+                    <img src="{{net_mkt.pic.url}}" class="img-fluid" alt="...">
+                </section>
+            </div>
+            <div class="col-md-6 p-3">
+                <p>
+                    {{net_mkt.snippet|safe|truncatechars:500}}
+                </p>
+                 <a class="btn btn-primary d-grid mt-2" href="{% url 'network-marketing' %}" role="button">View Details</a>
+            </div>
+        </div>
+</section>
+{% endif %}

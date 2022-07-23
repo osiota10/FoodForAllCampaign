@@ -1,0 +1,68 @@
+{% extends 'Company/base.html' %}
+{% load static %}
+{% load compress %}
+
+{% block title %}
+Contact-Food for All Campaign
+{% endblock %}
+
+{% block content %}
+<section class="min-vh-100">
+    <header class="card bg-dark text-white header-card ratio ratio-21x9">
+        <img src="{{info.0.page_header_image.url}}" class="card-img" alt="...">
+        <div class="card-img-overlay d-flex align-items-center justify-content-center img-dark-overlay">
+            <div class="flex-column">
+                <h1 class="h1 card-title text-center">Contact Us</h1>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-3 bg-warning">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="container">
+            <ol class="breadcrumb fw-normal">
+                <li class="breadcrumb-item"><a href="{% url 'home'%}" class="text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+            </ol>
+        </nav>
+    </section>
+
+    {% if address_list %}
+    <section class="container py-6">
+        <header class="text-center mb-3">
+            <h2 class="h2">Our Office Addresses</h2>
+            <h6 class="h6">Locate any of our nearest Office</h6>
+            <hr class="hr mx-auto" style="width: 10%;">
+        </header>
+        <div class="row text-center">
+            <div class="owl-carousel" id="address-list">
+                {% for address in address_list%}
+                <section class="owl-theme">
+                    <section class="contact-info address-list">
+                        <i class="fa-solid fa-magnifying-glass-location  me-2 fs-4 text-primary bg-warning p-3 rounded-circle"></i>
+                        <h4 class="h4 mt-1">{{address.branch_name}}</h4>
+                        <p class="">{{address.address}}</p>
+                        <!--                    <div class="mt-1"><i class="fa-solid fa-phone-volume me-1"></i></div>-->
+                        <a href="tel:{{ address.contact_one }}" class="text-decoration-none"><p class="d-inline h5">
+                            {{ address.contact_one }}</p></a>
+                        {% if address.contact_two%}
+                        <div>
+                            <a href="tel:{{ address.contact_two }}" class="text-decoration-none"><p class="d-inline h5">
+                                {{ address.contact_two }}</p></a>
+                        </div>
+                        {% endif %}
+                    </section>
+                </section>
+
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="reveal">
+        {% include 'Company/contact-form.html' %}
+    </section>
+
+</section>
+
+{% endblock content %}

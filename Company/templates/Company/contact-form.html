@@ -1,0 +1,94 @@
+{% load static %}
+
+<div class="container py-6">
+    <header class="text-center">
+        <h2 class="h2">Contact Us</h2>
+        <hr class="hr mx-auto" style="width: 10%;">
+    </header>
+    <div class="row gy-3">
+        <div class="col-lg-5">
+            <section class="row mb-4 p-2 contact-info">
+                <section class="d-flex">
+                    <section>
+                        <i class="fa-solid fa-magnifying-glass-location  me-2 fs-4 text-primary bg-warning p-3 rounded-circle"></i>
+                    </section>
+                    <section>
+                        <h5 class="h5">Head Office</h5>
+                        <p class="d-inline">{{info.0.address }}</p>
+                    </section>
+                </section>
+            </section>
+
+            <section class="row mb-4 p-2 contact-info">
+                <a href="mailto:{{ info.0.email }}" class="text-decoration-none">
+                <section class="d-flex">
+                    <section>
+                        <i class="fa-solid fa-envelope me-2 fs-4 text-primary bg-warning p-3 rounded-circle"></i>
+                    </section>
+                    <section>
+                        <h5 class="h5">Email</h5>
+                        <span
+                                class="custom-icon"></span>
+                            <p class="d-inline">{{ info.0.email }}</p>
+                    </section>
+                </section>
+                    </a>
+            </section>
+
+            <section class="row p-2 contact-info">
+                <a href="tel:{{ info.0.telephone }}" class="text-decoration-none">
+                    <section class="d-flex">
+                        <section>
+                            <i class="fa-solid fa-phone-volume me-2 fs-4 text-primary bg-warning p-3 rounded-circle"></i>
+                        </section>
+                        <section>
+                            <h5 class="h5">Telephone</h5>
+                            <p class="d-inline">
+                                {{info.0.telephone }}</p>
+                        </section>
+                    </section>
+                </a>
+            </section>
+        </div>
+
+        <div class="col-lg-7">
+            <form method="POST" id="ContactForm">
+    {% csrf_token %}
+    <input type="hidden" name="form_type" value="ContactForm">
+
+    <section class="row gy-3">
+        <div class="col-lg-6">
+            <label for="formGroupExampleInput" class="form-label">Full Name</label>
+            <input type="text" class="form-control inputfield" id="formGroupExampleInput"
+                   placeholder="Full Name" name="name">
+        </div>
+        <div class="col-lg-6">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control inputfield" id="exampleInputEmail1"
+                   aria-describedby="emailHelp" placeholder="Email Address" name="email">
+        </div>
+        <div class="col-lg-6">
+            <label for="formGroupExampleInput" class="form-label">Phone Number</label>
+            <input type="text" class="form-control inputfield" id="formGroupExampleInput2"
+                   placeholder="Phone Number" name="phone_number">
+        </div>
+        <div class="col-lg-6">
+            <label for="formGroupExampleInput" class="form-label">Location</label>
+            <input type="text" class="form-control inputfield" id="formGroupExampleInput3"
+                   placeholder="Current Location" name="location">
+        </div>
+        <div class="col-lg-12">
+            <label for="exampleFormControlTextarea1" class="form-label">Message</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                      placeholder="Enter Message" name="message"></textarea>
+        </div>
+        <div class="col-lg-12">
+        <button type="submit" class="btn btn-primary form-control col">Send Message</button>
+    </div>
+    </section>
+</form>
+        </div>
+    </div>
+</div>
+
+
